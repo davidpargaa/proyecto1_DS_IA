@@ -1,7 +1,15 @@
 from pathlib import Path
 
-
 def load_csv(path: str | Path):
-    """Load a CSV file into a DataFrame."""
+    """Load INE CSV file into a DataFrame with proper configuration."""
     import pandas as pd
-    return pd.read_csv(path)
+    
+    ### MODIFICACIÓN DE LA FUNCIÓN READ_CSV PARA TRATAR LOS DATOS CORRECTAMENTE ###
+    df = pd.read_csv(
+        path,
+        sep=";",                    # Separadores del CSV importado: ";"
+        encoding="latin-1",         # encoding del CSV del INE
+        na_values=[".", ""],        # tratar "." y vacíos como NaN
+    )
+    
+    return df
